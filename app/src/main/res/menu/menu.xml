@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/novo"
+        android:title="Novo"/>
+    <item
+        android:id="@+id/mapa"
+        android:title="Mapa"/>
+    <item
+        android:title="Mais Opcões">
+        <menu>
+            <item
+                android:id="@+id/sincronizar"
+                android:title="Sincronizar"/>
+            <item
+                android:id="@+id/receber"
+                android:title="Receber"/>
+            <item
+                android:id="@+id/preferencias"
+                android:title="Preferências"/>
+        </menu>
+    </item>
+</menu>
