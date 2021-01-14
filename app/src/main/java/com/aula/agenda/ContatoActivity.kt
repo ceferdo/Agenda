@@ -34,16 +34,16 @@ class ContatoActivity : AppCompatActivity() {
         txtDatanascimento.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 DatePickerDialog(this@ContatoActivity,
-                    dateSetListener,
-                    // set DatePickerDialog to point to today's date when it loads up
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)).show()
+                        dateSetListener,
+                        // set DatePickerDialog to point to today's date when it loads up
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH)).show()
             }
         })
 
         btnCadastro.setOnClickListener{
-            var dados = "[${txtNome.text} : ${txtEmail.text} : ${txtEndereco.text} : ${txtTelefone.text} : ${txtSite.text} : ${txtDatanascimento.text}}]"
+            var dados = "[${txtNome.text} : ${txtEndereco.text} : ${txtEmail.text} : ${txtTelefone.text} : ${txtSite.text} : ${txtDatanascimento.text}]"
             Toast.makeText(this, dados, Toast.LENGTH_LONG).show()
         }
     }
