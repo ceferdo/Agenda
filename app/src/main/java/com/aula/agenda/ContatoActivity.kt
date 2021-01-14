@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
+import com.aula.db.Contato
+import com.aula.db.ContatoRepository
 import kotlinx.android.synthetic.main.activity_contato.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,17 +36,29 @@ class ContatoActivity : AppCompatActivity() {
         txtDatanascimento.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 DatePickerDialog(this@ContatoActivity,
-                        dateSetListener,
-                        // set DatePickerDialog to point to today's date when it loads up
-                        cal.get(Calendar.YEAR),
-                        cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH)).show()
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)).show()
             }
         })
 
         btnCadastro.setOnClickListener{
-            var dados = "[${txtNome.text} : ${txtEndereco.text} : ${txtEmail.text} : ${txtTelefone.text} : ${txtSite.text} : ${txtDatanascimento.text}]"
-            Toast.makeText(this, dados, Toast.LENGTH_LONG).show()
+
+            val contato = Contato(
+                nome = txtNome.text?.toString(),
+                endereco = txtEndereco.text?.toString(),
+                email = txtEmail.text?.toString(),
+                telefone = txtTelefone.text?.toString()?.toLong(),
+                dataNascimento = cal.timeInMillis,
+                site = txtSite.text?.toString()
+            )
+
+            ContatoRepository(this).create(contato)
+
+            Toast.makeText(this, "Contato incluido com sucesso", Toast.LENGTH_LONG).show()
+            finish()
         }
     }
 
@@ -54,6 +68,12 @@ class ContatoActivity : AppCompatActivity() {
         txtDatanascimento.text = sdf.format(cal.getTime())
     }
 
-
-
+    override fun onResume() {
+        super.onResume()
+        val contato = intent?.getSerializableExtra("contato")
+        if(contato != null){
+            contato as Contato
+            txtNome.setText(contato?.nome)
+        }
+    }
 }
